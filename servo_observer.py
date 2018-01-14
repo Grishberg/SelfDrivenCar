@@ -78,6 +78,8 @@ class ServoObserver:
 
             # swap ranges
             start_range, end_range = end_range, start_range
+            if DEBUG:
+                print 'start_range, end_range', start_range, end_range
             if min_distance < self._min_range:
                 if last_distance_greater and self._min_range_listener is not None:
                     self._min_range_listener(distance_array)
