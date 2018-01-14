@@ -14,7 +14,7 @@ DEBUG = True
 
 class ServoObserver:
     def __init__(self, channel):
-        self._run = False
+        self._running = False
         self._servo = PCA9685()
         self._measurer = DistanceMeasurer(TRIG, ECHO)
         self._channel = channel
@@ -29,7 +29,7 @@ class ServoObserver:
         time.sleep(1)
 
     def start(self, min_range, min_range_listener):
-        self._run = True
+        self._running = True
         # init threads
         self._min_range = min_range
         self._min_range_listener = min_range_listener
@@ -39,7 +39,7 @@ class ServoObserver:
         self._thread.start()
 
     def stop(self):
-        self._run = False
+        self._running = False
 
     def cleanup(self):
         self._servo.off()
@@ -50,7 +50,7 @@ class ServoObserver:
         last_distance_greater = 999
         start_range = -100
         end_range = 100
-        while self._run:
+        while self._running:
             distance_array = {}
             min_distance = 999
             min_angle = 0
