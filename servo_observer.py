@@ -72,7 +72,7 @@ class ServoObserver:
                 if DEBUG and a == 0:
                     print ('{} distance is {}'.format(a, distance))
                 if min_distance > distance:
-                    distance = min_distance
+                    min_distance = distance
                     min_angle = a
                 # store distance for angle
                 distance_array[a] = distance
