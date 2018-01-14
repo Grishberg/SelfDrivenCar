@@ -26,11 +26,15 @@ class DistanceMeasurer:
         time.sleep(0.00001)
         gpio.output(self._trig, False)
 
-        while gpio.input(self._echo) == 0:
-            pulse_start = time.time()
+        for i in range(100000):
+            if gpio.input(self._echo) == 0:
+                pulse_start = time.time()
+                break
 
-        while gpio.input(self._echo) == 1:
-            pulse_end = time.time()
+        for i in range(100000):
+            if gpio.input(self._echo) == 1:
+                pulse_end = time.time()
+                break
 
         pulse_duration = pulse_end - pulse_start
         return round(pulse_duration * 17150, 2)
