@@ -5,7 +5,7 @@ from pca9685 import *
 import RPi.GPIO as gpio
 from hcsr04 import *
 
-STEP = 3
+STEP = 4
 
 ECHO = 17
 TRIG = 4
@@ -49,8 +49,8 @@ class ServoObserver:
         if DEBUG:
             print ("_run")
         last_distance_greater = 999
-        start_range = -100
-        end_range = 100
+        start_range = -120
+        end_range = 120
         step = STEP
         while self._running:
             distance_array = {}
