@@ -42,7 +42,7 @@ def on_gui_created_listener():
 
     gpio.setmode(gpio.BCM)
 
-    o = ServoObserver(0)
+    o = ServoObserver(0, True)
 
     try:
         o.start(100, r.paint)

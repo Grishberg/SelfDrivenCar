@@ -13,7 +13,7 @@ DEBUG = True
 
 
 class ServoObserver:
-    def __init__(self, channel):
+    def __init__(self, channel, discret_callback=False):
         self._running = False
         self._servo = PCA9685()
         self._measurer = hcsr04(TRIG, ECHO)
@@ -21,6 +21,7 @@ class ServoObserver:
         self._thread = None
         self._min_range = 0
         self._min_range_listener = None
+        self.discret_callback = discret_callback
 
         self._servo.servos[self._channel].set(signed=True, reverse=True,
                                               min=100, max=100,
@@ -83,7 +84,7 @@ class ServoObserver:
             if DEBUG:
                 print ('min distance = {}, flag = {}'.format(min_distance, last_distance_greater))
             if min_distance < self._min_range:
-                if last_distance_greater and self._min_range_listener is not None:
+                if (self.discret_callback or last_distance_greater) and self._min_range_listener is not None:
                     self._min_range_listener(distance_array)
                     last_distance_greater = False
             else:
