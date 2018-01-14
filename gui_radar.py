@@ -42,7 +42,7 @@ def on_gui_created_listener():
     o = ServoObserver(0)
 
     try:
-        o.start(10, r.paint)
+        o.start(0, r.paint)
         time.sleep(20)
         o.stop()
     finally:
