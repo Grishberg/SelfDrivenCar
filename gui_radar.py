@@ -22,18 +22,24 @@ class RadarGui:
 
     def start(self):
         self.master.after(100, on_gui_created_listener)
+        self.master.after(100, self.paint)
         self.master.mainloop()
 
-    def paint(self, points):
-        print "called paint with ", points
-        self._canvas.delete("all")
-        delta = (canvas_width / 2) - border
-        for key, value in points.iteritems():
-            x = delta + (key / 100.) * delta + border
-            y = int(value / 2)
-            print x, y
-            self._canvas.create_line(x, canvas_height, x, canvas_height - y, fill="#476042")
-        self.master.update()
+    def update_points(self,points):
+        self.points = points
+        print "called paint with ", self.points
+
+    def paint(self):
+        for i in range(100):
+            self._canvas.delete("all")
+            delta = (canvas_width / 2) - border
+            for key, value in self.points.iteritems():
+                x = delta + (key / 100.) * delta + border
+                y = int(value / 2)
+                print x, y
+                self._canvas.create_line(x, canvas_height, x, canvas_height - y, fill="#476042")
+            self.master.update()
+            time.sleep(0.025)
 
 
 def on_gui_created_listener():
