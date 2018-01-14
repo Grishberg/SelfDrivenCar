@@ -4,14 +4,8 @@ import time
 
 class DistanceMeasurer:
     def __init__(self, trig, echo):
-        self._running = True
-        self.min_dist = 10
-        self.interval = 0.100
-        self.distance = 0.
         self._trig = trig
         self._echo = echo
-        self._thread = None
-        self._measure_listener = None
 
         gpio.setup(self._trig, gpio.OUT)
         gpio.setup(self._echo, gpio.IN)
