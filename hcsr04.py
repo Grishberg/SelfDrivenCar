@@ -77,7 +77,7 @@ class hcsr04:
 
 
 if __name__ == '__main__':
-    sonar = hcsr04(23, 24)
+    sonar = hcsr04(4, 17)
 
     for i in range(50):
         print sonar.get_distance(), sonar.error
