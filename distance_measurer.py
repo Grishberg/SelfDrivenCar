@@ -13,7 +13,6 @@ class DistanceMeasurer:
         self._thread = None
         self._measure_listener = None
 
-        print "Distance Measurement In Progress"
         GPIO.setup(self._trig, GPIO.OUT)
         GPIO.setup(self._echo, GPIO.IN)
 
@@ -41,6 +40,6 @@ if __name__ == '__main__':
     GPIO.setmode(GPIO.BCM)
 
     d = DistanceMeasurer(4, 17)
-    d.measure()
+    print d.measure()
 
     GPIO.cleanup()
