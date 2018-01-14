@@ -30,6 +30,7 @@ class RadarGui:
             y = int(value / 2)
             print x, y
             self._canvas.create_line(x, canvas_height, x, canvas_height - y, fill="#476042")
+        self.master.update()
 
 
 def on_gui_created_listener():
