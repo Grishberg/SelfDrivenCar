@@ -80,6 +80,8 @@ class ServoObserver:
             # swap ranges
             start_range, end_range, step = end_range, start_range, -step
 
+            if DEBUG:
+                print ('min distance = {}, flag = {}'.format(min_distance, last_distance_greater))
             if min_distance < self._min_range:
                 if last_distance_greater and self._min_range_listener is not None:
                     self._min_range_listener(distance_array)
@@ -100,7 +102,7 @@ if __name__ == '__main__':
 
     try:
         o.start(10, test_callback)
-        time.sleep(10)
+        time.sleep(20)
         o.stop()
     finally:
         print ("cleanup observer")
