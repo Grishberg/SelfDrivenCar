@@ -6,9 +6,11 @@ MAX_DISTANCE = 999. / 17150.
 
 class DistanceMeasurer:
     def __init__(self, trig, echo):
+
         self._trig = trig
         self._echo = echo
 
+        gpio.setmode(gpio.BCM)
         gpio.setup(self._trig, gpio.OUT)
         gpio.setup(self._echo, gpio.IN)
 
@@ -38,8 +40,6 @@ class DistanceMeasurer:
 
 
 if __name__ == '__main__':
-    gpio.setmode(gpio.BCM)
-
     d = DistanceMeasurer(4, 17)
     print d.measure()
 
