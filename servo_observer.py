@@ -79,13 +79,17 @@ class ServoObserver:
                 last_distance_greater = True
 
 
+def test_callback(arrays):
+    print arrays
+
+
 if __name__ == '__main__':
     gpio.setmode(gpio.BCM)
 
     o = ServoObserver(0)
 
-    o.start(10, None)
+    o.start(10, test_callback)
     time.sleep(10)
-
     o.stop()
+    
     gpio.cleanup()
