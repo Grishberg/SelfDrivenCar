@@ -19,7 +19,7 @@ class RadarGui:
 
         #self.paint(points)
     def start(self):
-        self.master.after(0, on_gui_created_listener)
+        self.master.after(100, on_gui_created_listener)
         self.master.mainloop()
 
     def paint(self, points):
