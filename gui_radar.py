@@ -32,6 +32,7 @@ class RadarGui:
 
 
 def on_gui_created_listener():
+    global r
     print "on_gui_created_listener"
 
     gpio.setmode(gpio.BCM)
