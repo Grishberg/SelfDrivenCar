@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 import threading
 from pca9685 import *
-from distance_measurer import DistanceMeasurer
 import RPi.GPIO as gpio
+from hcsr04 import *
 
 STEP = 3
 
@@ -16,7 +16,7 @@ class ServoObserver:
     def __init__(self, channel):
         self._running = False
         self._servo = PCA9685()
-        self._measurer = DistanceMeasurer(TRIG, ECHO)
+        self._measurer = hcsr04(TRIG, ECHO)
         self._channel = channel
         self._thread = None
         self._min_range = 0
@@ -65,7 +65,7 @@ class ServoObserver:
                 # measure distance
                 distance = 999
                 for i in range(10):
-                    distance = self._measurer.measure()
+                    distance = self._measurer.get_distance()
                     if distance < 999:
                         break
                 if DEBUG:
