@@ -56,6 +56,8 @@ class ServoObserver:
             min_angle = 0
 
             for a in xrange(start_range, end_range, STEP):
+                if not self._running:
+                    return
                 # turn servo into angle
                 self._servo.setServo(self._channel, a)
                 time.sleep(0.01)
@@ -92,8 +94,10 @@ if __name__ == '__main__':
 
     o = ServoObserver(0)
 
-    o.start(10, test_callback)
-    time.sleep(10)
-    o.stop()
-
-    gpio.cleanup()
+    try:
+        o.start(10, test_callback)
+        time.sleep(10)
+        o.stop()
+    finally:
+        o.cleanup()
+        gpio.cleanup()
