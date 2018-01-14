@@ -73,7 +73,7 @@ class hcsr04:
 
     def __del__(self):
         # Reset GPIO settings
-        GPIO.cleanup([self.GPIO_TRIGGER, self.GPIO_ECHO])
+        pass
 
 
 if __name__ == '__main__':
@@ -82,3 +82,4 @@ if __name__ == '__main__':
     for i in range(50):
         print sonar.get_distance(), sonar.error
         time.sleep(0.01)
+    GPIO.cleanup([4, 17])
