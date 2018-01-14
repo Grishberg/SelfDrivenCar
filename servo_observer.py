@@ -51,12 +51,13 @@ class ServoObserver:
         last_distance_greater = 999
         start_range = -100
         end_range = 100
+        step = STEP
         while self._running:
             distance_array = {}
             min_distance = 999
             min_angle = 0
 
-            for a in xrange(start_range, end_range, STEP):
+            for a in xrange(start_range, end_range, step):
                 if not self._running:
                     return
                 # turn servo into angle
@@ -77,7 +78,7 @@ class ServoObserver:
                 distance_array[a] = distance
 
             # swap ranges
-            start_range, end_range = end_range, start_range
+            start_range, end_range, step = end_range, start_range, -step
             if DEBUG:
                 print 'start_range, end_range', start_range, end_range
             if min_distance < self._min_range:
