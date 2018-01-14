@@ -34,6 +34,8 @@ class ServoObserver:
         self._min_range = min_range
         self._min_range_listener = min_range_listener
         self._thread = threading.Thread(target=self._run, args=())
+        if DEBUG:
+            print ("self._thread.start()")
         self._thread.start()
 
     def stop(self):
@@ -43,6 +45,8 @@ class ServoObserver:
         self._servo.off()
 
     def _run(self):
+        if DEBUG:
+            print ("_run")
         last_distance_greater = 999
         start_range = -100
         end_range = 100
@@ -91,5 +95,5 @@ if __name__ == '__main__':
     o.start(10, test_callback)
     time.sleep(10)
     o.stop()
-    
+
     gpio.cleanup()
