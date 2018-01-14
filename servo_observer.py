@@ -40,6 +40,7 @@ class ServoObserver:
 
     def stop(self):
         self._running = False
+        self._thread.join()
 
     def cleanup(self):
         self._servo.off()
@@ -99,5 +100,7 @@ if __name__ == '__main__':
         time.sleep(10)
         o.stop()
     finally:
+        print ("cleanup observer")
         o.cleanup()
+        print ("cleanup gpio")
         gpio.cleanup()
