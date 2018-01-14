@@ -51,7 +51,7 @@ def on_gui_created_listener():
     o = ServoObserver(0, True)
 
     try:
-        o.start(100, r.paint)
+        o.start(100, r.update_points)
         time.sleep(20)
         o.stop()
     finally:
