@@ -69,7 +69,7 @@ class ServoObserver:
                     distance = self._measurer.get_distance()
                     if distance < 999:
                         break
-                if DEBUG:
+                if DEBUG and a == 0:
                     print ('{} distance is {}'.format(a, distance))
                 if min_distance > distance:
                     distance = min_distance
@@ -79,8 +79,7 @@ class ServoObserver:
 
             # swap ranges
             start_range, end_range, step = end_range, start_range, -step
-            if DEBUG:
-                print 'start_range, end_range', start_range, end_range
+
             if min_distance < self._min_range:
                 if last_distance_greater and self._min_range_listener is not None:
                     self._min_range_listener(distance_array)
@@ -90,6 +89,7 @@ class ServoObserver:
 
 
 def test_callback(arrays):
+    print "callback:"
     print arrays
 
 
