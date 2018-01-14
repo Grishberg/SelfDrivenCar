@@ -48,7 +48,7 @@ class ServoObserver:
     def _run(self):
         if DEBUG:
             print ("_run")
-        last_distance_greater = 999
+        last_distance_greater = False
         start_range = -120
         end_range = 120
         step = STEP
