@@ -1,4 +1,4 @@
-import RPi.GPIO as GPIO
+import RPi.GPIO as gpio
 import time
 
 
@@ -13,23 +13,23 @@ class DistanceMeasurer:
         self._thread = None
         self._measure_listener = None
 
-        GPIO.setup(self._trig, GPIO.OUT)
-        GPIO.setup(self._echo, GPIO.IN)
+        gpio.setup(self._trig, gpio.OUT)
+        gpio.setup(self._echo, gpio.IN)
 
-        GPIO.output(self._trig, False)
+        gpio.output(self._trig, False)
 
     def measure(self):
         pulse_start = 0
         pulse_end = 17150 * 999
 
-        GPIO.output(self._trig, True)
+        gpio.output(self._trig, True)
         time.sleep(0.00001)
-        GPIO.output(self._trig, False)
+        gpio.output(self._trig, False)
 
-        while GPIO.input(self._echo) == 0:
+        while gpio.input(self._echo) == 0:
             pulse_start = time.time()
 
-        while GPIO.input(self._echo) == 1:
+        while gpio.input(self._echo) == 1:
             pulse_end = time.time()
 
         pulse_duration = pulse_end - pulse_start
@@ -37,9 +37,9 @@ class DistanceMeasurer:
 
 
 if __name__ == '__main__':
-    GPIO.setmode(GPIO.BCM)
+    gpio.setmode(gpio.BCM)
 
     d = DistanceMeasurer(4, 17)
     print d.measure()
 
-    GPIO.cleanup()
+    gpio.cleanup()

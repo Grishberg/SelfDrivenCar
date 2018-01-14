@@ -3,6 +3,7 @@
 import threading
 from pca9685 import *
 from distance_measurer import DistanceMeasurer
+import RPi.GPIO as gpio
 
 STEP = 3
 
@@ -79,8 +80,12 @@ class ServoObserver:
 
 
 if __name__ == '__main__':
+    gpio.setmode(gpio.BCM)
+
     o = ServoObserver(0)
 
     o.start(10, None)
     time.sleep(10)
+
     o.stop()
+    gpio.cleanup()
