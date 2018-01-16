@@ -41,7 +41,7 @@ class RadarGui:
         self.counter += 1
 
     def update_points(self, points):
-        #self.points = points
+        self.points = points
         print "called paint with ", self.points
 
     def invalidate(self):
