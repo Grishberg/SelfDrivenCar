@@ -41,7 +41,8 @@ class ServoObserver:
 
     def stop(self):
         self._running = False
-        self._thread.join()
+        if self._thread is not None:
+            self._thread.join()
 
     def cleanup(self):
         self._servo.off()
@@ -103,7 +104,7 @@ if __name__ == '__main__':
 
     try:
         o.start(10, test_callback)
-        time.sleep(20)
+        time.sleep(10)
         o.stop()
     finally:
         print ("cleanup observer")

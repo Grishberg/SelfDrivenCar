@@ -93,4 +93,5 @@ ENV/
 RPi
 for_test.py
 smbus.py
+_pca9685.py
 
