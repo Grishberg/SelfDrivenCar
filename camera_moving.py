@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import threading
-from _pca9685 import *
+from pca9685 import *
 import RPi.GPIO as gpio
-from Queue import Queue
+from Queue import Queue, Empty
 import time
 
 DEBUG = True
@@ -52,25 +52,35 @@ class CameraController:
 
     def _horizontal_run(self):
         print "start _horizontal_run"
-        while not self._stop_event.set():
-            next_angle = self._horizontal_queue.get()
-            print "    next horizontal angle %s" % next_angle
-            self._servo.setServo(self._channel_horizontal, next_angle)
-            self._stop_event.wait(1)
+        while not self._stop_event.is_set():
+            try:
+                next_angle = self._horizontal_queue.get(timeout=1)
+                print "    next horizontal angle %s" % next_angle
+                self._servo.setServo(self._channel_horizontal, next_angle)
+                self._stop_event.wait(1)
+            except Empty:
+                pass
         print "stop _horizontal_run"
 
     def _vertical_run(self):
         print "start _vertical_run"
-        while not self._stop_event.set():
-            next_angle = self._vertical_queue.get()
-            print "    next vertical angle %s" % next_angle
-            self._servo.setServo(self._channel_vertical, next_angle)
-            self._stop_event.wait(1)
+        while not self._stop_event.is_set():
+            try:
+                next_angle = self._vertical_queue.get(timeout=1)
+                print "    next vertical angle %s" % next_angle
+                self._servo.setServo(self._channel_vertical, next_angle)
+                self._stop_event.wait(1)
+            except Empty:
+                pass
         print "stop _vertical_run"
 
     def cleanup(self):
         print "clean"
         self._stop_event.set()
+
+        self._horizontal_queue.queue.clear()
+        self._vertical_queue.queue.clear()
+
         self._servo.off()
 
 
