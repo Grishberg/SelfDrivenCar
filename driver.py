@@ -9,6 +9,7 @@ class Driver:
         pass
 
     def init(self):
+        print "Driver: init gpio"
         gpio.setmode(gpio.BCM)
         gpio.setup(27, gpio.OUT)
         gpio.setup(22, gpio.OUT)
@@ -61,4 +62,5 @@ class Driver:
 
     @staticmethod
     def clean():
+        print "Driver: gpio.cleanup()"
         gpio.cleanup()
