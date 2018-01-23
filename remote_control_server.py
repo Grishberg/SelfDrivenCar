@@ -15,12 +15,18 @@ RELEASED = 'r'
 QUIT = 'q'
 DEBUG = True
 
+driver = Driver()
+
 
 class CarWebSocket(websocket.WebSocketHandler):
     def __init__(self, application, request, **kwargs):
+        global driver
         super(CarWebSocket, self).__init__(application, request, **kwargs)
-        self._car_controller = Driver()
+        self._car_controller = driver
         self._mode = None
+
+    def initialize(self, db):
+        self.db = db
 
     def open(self):
         print "Websocket Opened"
@@ -65,4 +71,8 @@ application = tornado.web.Application([(r"/", CarWebSocket), ])
 if __name__ == "__main__":
     application.listen(9000)
     print "launched server on port 9000"
-    tornado.ioloop.IOLoop.instance().start()
+    try:
+        tornado.ioloop.IOLoop.instance().start()
+    except Exception:
+        driver.clean()
+        print "error"
