@@ -7,7 +7,7 @@ from Queue import Queue, Empty
 import time
 
 DEBUG = True
-SERVO_EXECUTING_TIME = 0.2
+SERVO_EXECUTING_TIME = 0.5
 
 
 class CameraController:
