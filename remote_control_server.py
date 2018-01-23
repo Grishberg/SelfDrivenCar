@@ -9,8 +9,11 @@ RIGHT = 'r'
 TURN_LEFT = '<'
 TURN_RIGHT = '>'
 
-PRESSED = 'p'
-RELEASED = 'r'
+CAMERA_HORISONT = 'hcam'
+CAMERA_VERTICAL = 'vcam'
+
+PRESSED = 1
+RELEASED = 0
 
 QUIT = 'q'
 DEBUG = True
@@ -32,10 +35,11 @@ class CarWebSocket(websocket.WebSocketHandler):
     def on_message(self, message):
         if DEBUG:
             print "on_message:", message
-        if len(message) != 2:
+        lst = message.split(',')
+        if len(lst) != 2:
             print "wrong command length: %s" % message
-        cmd = message[0]
-        action = message[1]
+        cmd = lst[0]
+        action = int(lst[1])
 
         self.process_cmd(cmd, action)
 
@@ -47,6 +51,12 @@ class CarWebSocket(websocket.WebSocketHandler):
         if cmd == QUIT:
             self.quit()
             return
+        if cmd == UP or cmd == DOWN or cmd == LEFT or cmd == RIGHT:
+            self.process_moving_cmd(action, cmd)
+        else:
+            self.process_camera_cmd(action, cmd)
+
+    def process_moving_cmd(self, action, cmd):
         if action == PRESSED:
             if cmd == UP:
                 self._car_controller.forward(0.5)
@@ -61,6 +71,12 @@ class CarWebSocket(websocket.WebSocketHandler):
 
     def quit(self):
         self.write_message("quit")
+
+    def process_camera_cmd(self, action, angle):
+        if action == CAMERA_HORISONT:
+            pass
+        elif action == CAMERA_VERTICAL:
+            pass
 
 
 application = tornado.web.Application([(r"/", CarWebSocket), ])
