@@ -20,7 +20,7 @@ QUIT = 'q'
 DEBUG = True
 
 driver = Driver()
-camera_controller = CameraController()
+camera_controller = CameraController(1, 2)
 
 
 class CarWebSocket(websocket.WebSocketHandler):
