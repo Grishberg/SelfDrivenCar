@@ -79,6 +79,8 @@ class CarWebSocket(websocket.WebSocketHandler):
         self.write_message("quit")
 
     def process_camera_cmd(self, action, angle):
+        if DEBUG:
+            print "camera action %s " % action
         if action == CAMERA_HORISONT:
             self._cam_controller.set_horizontal_angle(angle)
         elif action == CAMERA_VERTICAL:
