@@ -74,7 +74,7 @@ class CameraController:
                 pass
         print "stop _vertical_run"
 
-    def cleanup(self):
+    def clean(self):
         print "clean"
         self._stop_event.set()
 
@@ -102,6 +102,6 @@ if __name__ == '__main__':
         time.sleep(1.5)
     finally:
         print ("cleanup controller")
-        cc.cleanup()
+        cc.clean()
         gpio.cleanup()
     print "done"

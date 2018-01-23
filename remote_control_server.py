@@ -1,6 +1,7 @@
 from tornado import websocket
 import tornado.ioloop
 from driver import Driver
+from camera_moving_controller import CameraController
 
 UP = 'u'
 DOWN = 'd'
@@ -19,13 +20,17 @@ QUIT = 'q'
 DEBUG = True
 
 driver = Driver()
+camera_controller = CameraController()
 
 
 class CarWebSocket(websocket.WebSocketHandler):
     def __init__(self, application, request, **kwargs):
         global driver
+        global camera_controller
+
         super(CarWebSocket, self).__init__(application, request, **kwargs)
         self._car_controller = driver
+        self._cam_controller = camera_controller
         self._mode = None
 
     def open(self):
@@ -46,6 +51,7 @@ class CarWebSocket(websocket.WebSocketHandler):
     def on_close(self):
         print "Websocket closed"
         self._car_controller.clean()
+        self._cam_controller.clean()
 
     def process_cmd(self, cmd, action):
         if cmd == QUIT:
@@ -74,9 +80,9 @@ class CarWebSocket(websocket.WebSocketHandler):
 
     def process_camera_cmd(self, action, angle):
         if action == CAMERA_HORISONT:
-            pass
+            self._cam_controller.set_horizontal_angle(angle)
         elif action == CAMERA_VERTICAL:
-            pass
+            self._cam_controller.set_vertical_angle(angle)
 
 
 application = tornado.web.Application([(r"/", CarWebSocket), ])
