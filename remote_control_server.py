@@ -25,9 +25,6 @@ class CarWebSocket(websocket.WebSocketHandler):
         self._car_controller = driver
         self._mode = None
 
-    def initialize(self, db):
-        self.db = db
-
     def open(self):
         print "Websocket Opened"
         self._car_controller.init()
