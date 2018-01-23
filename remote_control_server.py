@@ -36,8 +36,6 @@ class CarWebSocket(websocket.WebSocketHandler):
 
         self.process_cmd(cmd, action)
 
-        self.write_message(u"You said: %s" % message)
-
     def on_close(self):
         print "Websocket closed"
         self._car_controller.clean()
@@ -66,4 +64,5 @@ application = tornado.web.Application([(r"/", CarWebSocket), ])
 
 if __name__ == "__main__":
     application.listen(9000)
+    print "launched server on port 9000"
     tornado.ioloop.IOLoop.instance().start()
