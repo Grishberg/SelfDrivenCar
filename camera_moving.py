@@ -96,7 +96,10 @@ if __name__ == '__main__':
         cc.set_vertical_angle(100)
         cc.set_vertical_angle(0)
         cc.set_vertical_angle(-100)
-        time.sleep(4)
+        time.sleep(6)
+        cc.set_horizontal_angle(0)
+        cc.set_vertical_angle(0)
+        time.sleep(1.5)
     finally:
         print ("cleanup controller")
         cc.cleanup()
