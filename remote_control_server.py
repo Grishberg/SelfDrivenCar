@@ -58,9 +58,9 @@ class CarWebSocket(websocket.WebSocketHandler):
             self.quit()
             return
         if cmd == UP or cmd == DOWN or cmd == LEFT or cmd == RIGHT:
-            self.process_moving_cmd(action, cmd)
+            self.process_moving_cmd(cmd, action)
         else:
-            self.process_camera_cmd(action, cmd)
+            self.process_camera_cmd(cmd, action)
 
     def process_moving_cmd(self, action, cmd):
         if action == PRESSED:
@@ -78,12 +78,10 @@ class CarWebSocket(websocket.WebSocketHandler):
     def quit(self):
         self.write_message("quit")
 
-    def process_camera_cmd(self, action, angle):
-        if DEBUG:
-            print "camera action %s " % action
-        if action == CAMERA_HORISONT:
+    def process_camera_cmd(self, cmd, angle):
+        if cmd == CAMERA_HORISONT:
             self._cam_controller.set_horizontal_angle(angle)
-        elif action == CAMERA_VERTICAL:
+        elif cmd == CAMERA_VERTICAL:
             self._cam_controller.set_vertical_angle(angle)
 
 
