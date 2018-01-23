@@ -26,7 +26,6 @@ class Driver:
         gpio.output(24, False)
 
     def forward(self, tf):
-        self.init()
         gpio.output(27, True)
         gpio.output(22, False)
         gpio.output(23, True)
@@ -34,7 +33,6 @@ class Driver:
         self.wait_and_clean(tf)
 
     def reverse(self, tf):
-        self.init()
         gpio.output(27, False)
         gpio.output(22, True)
         gpio.output(23, False)
@@ -42,7 +40,6 @@ class Driver:
         self.wait_and_clean(tf)
 
     def right(self, t):
-        self.init()
         gpio.output(27, True)
         gpio.output(22, False)
         gpio.output(23, False)
@@ -50,7 +47,6 @@ class Driver:
         self.wait_and_clean(t)
 
     def left(self, t):
-        self.init()
         gpio.output(27, False)
         gpio.output(22, True)
         gpio.output(23, True)
