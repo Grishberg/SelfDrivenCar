@@ -7,6 +7,7 @@ from Queue import Queue, Empty
 import time
 
 DEBUG = True
+SERVO_EXECUTING_TIME = 0.2
 
 
 class CameraController:
@@ -57,7 +58,7 @@ class CameraController:
                 next_angle = self._horizontal_queue.get(timeout=1)
                 print "    next horizontal angle %s" % next_angle
                 self._servo.setServo(self._channel_horizontal, next_angle)
-                self._stop_event.wait(1)
+                self._stop_event.wait(SERVO_EXECUTING_TIME)
             except Empty:
                 pass
         print "stop _horizontal_run"
@@ -69,7 +70,7 @@ class CameraController:
                 next_angle = self._vertical_queue.get(timeout=1)
                 print "    next vertical angle %s" % next_angle
                 self._servo.setServo(self._channel_vertical, next_angle)
-                self._stop_event.wait(1)
+                self._stop_event.wait(SERVO_EXECUTING_TIME)
             except Empty:
                 pass
         print "stop _vertical_run"
