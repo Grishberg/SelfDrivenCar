@@ -62,7 +62,7 @@ class CarWebSocket(websocket.WebSocketHandler):
         else:
             self.process_camera_cmd(cmd, action)
 
-    def process_moving_cmd(self, action, cmd):
+    def process_moving_cmd(self, cmd, action):
         if action == PRESSED:
             if cmd == UP:
                 self._car_controller.forward(0.5)
