@@ -13,11 +13,12 @@ PRESSED = 'p'
 RELEASED = 'r'
 
 QUIT = 'q'
+DEBUG = True
 
 
-class EchoWebSocket(websocket.WebSocketHandler):
+class CarWebSocket(websocket.WebSocketHandler):
     def __init__(self, application, request, **kwargs):
-        super(EchoWebSocket, self).__init__(application, request, **kwargs)
+        super(CarWebSocket, self).__init__(application, request, **kwargs)
         self._car_controller = Driver()
         self._mode = None
 
@@ -26,6 +27,8 @@ class EchoWebSocket(websocket.WebSocketHandler):
         self._car_controller.init()
 
     def on_message(self, message):
+        if DEBUG:
+            print "on_message:", message
         if len(message) != 2:
             print "wrong command length: %s" % message
         cmd = message[0]
@@ -59,8 +62,7 @@ class EchoWebSocket(websocket.WebSocketHandler):
         self.write_message("quit")
 
 
-
-application = tornado.web.Application([(r"/", EchoWebSocket), ])
+application = tornado.web.Application([(r"/", CarWebSocket), ])
 
 if __name__ == "__main__":
     application.listen(9000)
