@@ -36,6 +36,7 @@ class CarWebSocket(websocket.WebSocketHandler):
     def open(self):
         print "Websocket Opened"
         self._car_controller.init()
+        self._cam_controller.init()
 
     def on_message(self, message):
         if DEBUG:
