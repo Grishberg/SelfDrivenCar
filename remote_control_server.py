@@ -72,9 +72,9 @@ class CarWebSocket(websocket.WebSocketHandler):
             elif cmd == DOWN:
                 self._car_controller.reverse(0.5)
             elif cmd == LEFT:
-                self._car_controller.left(0.5)
+                self._car_controller.left(0.01)
             elif cmd == RIGHT:
-                self._car_controller.right(0.5)
+                self._car_controller.right(0.01)
         elif action == RELEASED:
             self._car_controller.release()
 
